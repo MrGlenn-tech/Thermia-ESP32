@@ -5,6 +5,10 @@ substitutions:
 esphome:
   name: ${name}
   friendly_name: ${friendly_name}
+  libraries:
+    - knolleary/PubSubClient
+    - WiFi
+    - Wire
   project:
     name: glenn-edvardsen.thermiq-esphome
     version: "1.0.0"
@@ -17,9 +21,10 @@ esp32:
 external_components:
   - source:
       type: git
-      url: https://github.com/DITT-GITHUB-NAMN/thermiq-esphome
+      url:  https://github.com/MrGlenn-tech/Thermia-ESP32
       ref: main
     components: [thermiq_esp32]
+    refresh: 0s
 
 wifi:
   ssid: !secret wifi_ssid
@@ -34,8 +39,6 @@ logger:
   level: DEBUG
 
 api:
-  encryption:
-    key: !secret api_encryption_key
 
 ota:
   - platform: esphome
@@ -45,10 +48,10 @@ web_server:
   port: 80
 
 thermiq_esp32:
-  mqtt_host: !secret mqtt_host
-  mqtt_port: !secret mqtt_port
-  mqtt_username: !secret mqtt_username
-  mqtt_password: !secret mqtt_password
+  mqtt_host: "IP_NUMMER_MQTT_HOST"
+  mqtt_port: "PORT_DEFAULT:1883"
+  mqtt_username: "USER_NAME"
+  mqtt_password:  "PASSWORD"
 
   # Dessa defaults matchar originalsketchen.
   device_id: thermia_esp32
