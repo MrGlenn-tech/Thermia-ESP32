@@ -1,0 +1,64 @@
+substitutions:
+  name: thermiq-esp32
+  friendly_name: ThermIQ ESP32
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  project:
+    name: glenn-edvardsen.thermiq-esphome
+    version: "1.0.0"
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+external_components:
+  - source:
+      type: git
+      url: https://github.com/DITT-GITHUB-NAMN/thermiq-esphome
+      ref: main
+    components: [thermiq_esp32]
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: "ThermIQ ESP32 Fallback"
+    password: !secret fallback_ap_password
+
+captive_portal:
+
+logger:
+  level: DEBUG
+
+api:
+  encryption:
+    key: !secret api_encryption_key
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+web_server:
+  port: 80
+
+thermiq_esp32:
+  mqtt_host: !secret mqtt_host
+  mqtt_port: !secret mqtt_port
+  mqtt_username: !secret mqtt_username
+  mqtt_password: !secret mqtt_password
+
+  # Dessa defaults matchar originalsketchen.
+  device_id: thermia_esp32
+  device_name: Thermia ESP32
+  discovery_prefix: homeassistant
+  base_topic: thermia/esp32
+  thermiq_base_topic: ThermIQ/ThermIQ-mqtt
+
+  sda_pin: 21
+  scl_pin: 22
+  i2c_address: 0x2E
+  poll_interval: 300s
+  publish_interval: 30s
