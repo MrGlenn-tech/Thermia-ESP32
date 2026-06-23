@@ -51,7 +51,7 @@ components/thermiq_esp32/thermiq_esp32.cpp
 external_components:
   - source:
       type: git
-      url: https://github.com/DITT-GITHUB-NAMN/thermiq-esphome
+      url: https://github.com/MrGlenn-tech/Thermia-ESP32
       ref: main
     components: [thermiq_esp32]
 ```
